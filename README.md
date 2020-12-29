@@ -11,6 +11,7 @@ This module is an experimental research on prediction of rare events in a contin
 Dynamic Relevance Module Structure
 -------------------------------
 This module contains 2 sub modules and 6 files
+
     1: datasets - Folder  contains bike sharing dataset.
 
     2: PhiRelevance -
