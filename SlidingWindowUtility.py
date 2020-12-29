@@ -1,3 +1,4 @@
+# importing all required modules
 import warnings
 warnings.filterwarnings("ignore")
 import argparse
@@ -10,12 +11,15 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from sklearn.neighbors import KNeighborsRegressor
 import math
-import smogn
-from os import path
 from SmoteRSampling import SmoteR
 from RelevanceBasedOverSampling import RelevanceOverSampling
 
+
 def getParser():
+    """
+    :return: parser object containing all user arguments
+    """
+
 
     parser = argparse.ArgumentParser(description="Sliding Window PhiRelevance Based Regression",
                                      usage="\n * example usage-1:             python SlidingWindowUtility.py -dataFile ./datasets/bike-sharing/hour.csv -outputLabel cnt -method extremes -methodLevel high -coef 0.05 \n * example usage-2:             python SlidingWindowUtility.py -dataFile ./datasets/bike-sharing/hour.csv -outputLabel cnt -method range -controlPoints [[1,1,0],[2,1,0],[3,1,1]]\n ")
@@ -65,6 +69,14 @@ def getParser():
 
 
 def plotRelevance(y,relevance,start_date,end_date):
+    """
+
+    :param y: Continous target variable
+    :param relevance: Relevance Phi values associated with y data
+    :param start_date: Window Start date
+    :param end_date: Window end date
+    :return:
+    """
     plt.plot(y,relevance,'ro')
     plt.title("PhiRelevance from: "+str(start_date)+" and till: "+str(end_date))
     plt.xlabel('Class Labels')
@@ -72,10 +84,33 @@ def plotRelevance(y,relevance,start_date,end_date):
     plt.show()
 
 def plotHistogram(dataframe,label):
+    """
+
+    :param dataframe: dataframe object of data
+    :param label: name of continous target variable
+    :return: None
+    """
     plt.hist(dataframe[label], bins=10)
     plt.show()
 
 def callUtilityFunctions(data,method,extrType, controlPts, coef , start_date = '',end_date=''):
+    """
+
+    :param data: Continous Target Variable
+    :param method: method type ("extremes", "range")
+    :param extrType: required argument for extremes method ("low", "high", "both")
+    :param controlPts: required argument for range method (nx2 or nx3 matrix for contruct relevance)
+    :param coef: coefficient for extreme method
+    :param start_date: Window Start Date
+    :param end_date: Window End Date
+    :return:
+        list
+            yphi (phi values for target varaibles)
+        list
+            ydphi (first derivative phi values for target varaibles)
+        list
+            yddphi (second derivative phi values for target varaibles)
+    """
 
     if(method=="extremes"):
         controlPts, npts = phiControl(data,method,extrType, list(controlPts), coef)
@@ -97,6 +132,15 @@ def callUtilityFunctions(data,method,extrType, controlPts, coef , start_date = '
 
 
 def slidingWindow(data,label,date_label,window):
+    """
+    Function for Window Sliding
+    :param data: dataframe object for complete data
+    :param label: column name for target variable
+    :param date_label: date label in dataset
+    :param window: window size
+    :return: returns window data, start date and end date
+    """
+
     print("\n******************************************")
     print("Getting Ready for sliding window")
     print("\n******************************************")

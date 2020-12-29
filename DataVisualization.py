@@ -1,7 +1,7 @@
+# importing required modules
 import warnings
 warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
 import pandas as pd
 import seaborn as sns
 import numpy as np
@@ -10,6 +10,12 @@ from tabulate import tabulate
 
 
 def heatmap(data, method):
+    """
+
+    :param data: dataframe object containing data and features
+    :param method: method for heat maps ("pearson", "kendall", "spearman")
+    :return: None
+    """
     sns.set_theme()
     ax = sns.heatmap(data.corr(method= method))
     plt.title(method+" Correlation")
@@ -19,6 +25,10 @@ def heatmap(data, method):
 
 
 def histogram(data):
+    """
+    :param data: dataframe object containing data and features
+    :return: None
+    """
     for i in data.columns:
         sns.displot(data, x=i)
         plt.title("Histogram between "+str(i)+" feature and frequency")
@@ -27,6 +37,11 @@ def histogram(data):
 
 
 def boxplot(data):
+    """
+
+    :param data: dataframe object containing data and features
+    :return: None
+    """
     for i in data.columns:
         f, (ax_hist, ax_box) = plt.subplots(2, sharex=True, gridspec_kw={"height_ratios": (.5, .5)})
         plt.title(str(i) + ' feature')
@@ -36,6 +51,10 @@ def boxplot(data):
 
 
 def scatterplot(data):
+    """
+    :param data: dataframe object containing data and features
+    :return: None
+    """
     for i in data.columns:
         for j in data.columns:
             sns.scatterplot(data=data, x=i, y=j, hue="temp")
