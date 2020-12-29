@@ -70,6 +70,7 @@ For Testing Relevance Function in PhiRelevance Module
 In Command Prompt run:
 
 python TestUtilityModule.py
+
 -------------------------------
 help
 -------------------------------
@@ -80,9 +81,14 @@ Author details
 -------------------------------
 
 Durga Prasad Rangavajjala
+
 University of Ottawa
+
 drang041@uottawa.ca
 
+
 Supervisor: Paulo Branco
+
 University of Ottawa
+
 -------------------------------
